@@ -146,14 +146,33 @@ class elec_jebby:
         while True:
             prgm_act = input("Choose your program with an integer : ")
             prgm_act = self.confirm_int(prgm_act, errortext='Please enter an interger!', errorshow=True)
+            if prgm_act not in list(np.arange(len(self.jebby_prgm)).astype(int)):
+                print(f'Please enter between {list(np.arange(len(self.jebby_prgm)).astype(int))}')
+                continue
             if prgm_act is not None:
                 break
         room_remains = self.seatnum_arr[prgm_act]
+        num_remains = np.sum(room_remains)
+        
+        print("-------------------------------------------------------")
+        for i, room in enumerate(self.jebby_room):
+            print(f'{room} : {room_remains[i]}')
+        print("-------------------------------------------------------")
+        
+        _ = input("Press enter if you want to check your room : ")
+        time.sleep(self.td)
         
         while True:
-            if sum(room_remains) < 1:
+            if num_remains < 1:
                 break
-            room_act = np.random.choice([0, 1, 2, 3])
+            jebby = np.random.choice(np.arange(num_remains))
+            for i in range(len(room_remains)):
+                if jebby < sum(room_remains[:i + 1]):
+                    room_act = i
+                    break
+                if i == len(room_remains) - 1:
+                    room_act = i
+            
             if room_remains[room_act] > 0:
                 render_number(self.jebby_room[room_act])
                 self.seatnum_arr[prgm_act][room_act] -= 1
@@ -172,6 +191,9 @@ class elec_jebby:
         while True:
             room_act = input("Choose your room with an integer : ")
             room_act = self.confirm_int(room_act, errortext='Please enter an interger!', errorshow=True)
+            if room_act not in list(np.arange(len(self.jebby_room)).astype(int)):
+                print(f'Please enter between {list(np.arange(len(self.jebby_room)).astype(int))}')
+                continue
             if room_act is not None:
                 break
         seatnum = self.jebby_aloc[room_act]
@@ -217,6 +239,9 @@ class elec_jebby:
         while True:
             prgm_act = input("Choose your program with an integer : ")
             prgm_act = self.confirm_int(prgm_act, errortext='Please enter an interger!', errorshow=True)
+            if prgm_act not in list(np.arange(len(self.jebby_prgm)).astype(int)):
+                print(f'Please enter between {list(np.arange(len(self.jebby_prgm)).astype(int))}')
+                continue
             if prgm_act is not None:
                 break
         
@@ -228,6 +253,9 @@ class elec_jebby:
         while True:
             room_act = input("Choose your room with an integer : ")
             room_act = self.confirm_int(room_act, errortext='Please enter an interger!', errorshow=True)
+            if room_act not in list(np.arange(len(self.jebby_prgm)).astype(int)):
+                print(f'Please enter between {list(np.arange(len(self.jebby_room)).astype(int))}')
+                continue
             if room_act is not None:
                 break
         
