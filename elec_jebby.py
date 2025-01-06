@@ -247,7 +247,7 @@ class elec_jebby:
         
         print("-------------------------------------------------------")
         for i, room in enumerate(self.jebby_room):
-            print(f'{room} : {room_remains[i]}')
+            print(f'{room} : {room_remains[i]} seats left for {self.jebby_prgm[prgm_act]}')
         print("-------------------------------------------------------")
         
         _ = input("Press enter if you want to check your room : ")
@@ -344,7 +344,7 @@ class elec_jebby:
         while True:
             room_act = input("Choose your room with an integer : ")
             room_act = self.confirm_int(room_act, errortext='Please enter an interger!', errorshow=True)
-            if room_act not in list(np.arange(len(self.jebby_prgm)).astype(int)):
+            if room_act not in list(np.arange(len(self.jebby_room)).astype(int)):
                 print(f'Please enter between {list(np.arange(len(self.jebby_room)).astype(int))}')
                 continue
             if room_act is not None:
